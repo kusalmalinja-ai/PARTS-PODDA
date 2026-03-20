@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARTS PODDA - Vehicle Spare Parts Marketplace Sri Lanka</title>
+    <meta name="description" content="Sri Lanka's largest vehicle spare parts marketplace. Quality parts for Cars, Vans, Motorbikes & Lorries. Islandwide delivery available.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#DC2626',
+                        primaryDark: '#B91C1C',
+                        dark: '#0F0F0F',
+                        darker: '#050505',
+                        darkGray: '#1A1A1A',
+                        mediumGray: '#2D2D2D',
+                        lightGray: '#404040',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans Sinhala', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F0F0F;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #DC2626;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B91C1C;
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-light {
+            background: rgba(45, 45, 45, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #DC2626 0%, #FF6B6B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Hover Effects */
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+        
+        /* Search Input Glow */
+        .search-glow:focus {
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.3);
+        }
+        
+        /* Vehicle Card Gradient Border */
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, #DC2626 0%, transparent 50%, #DC2626 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gradient-border:hover::before {
+            opacity: 1;
+        }
+        
+        /* Loader */
+        .loader {
+            border: 3px solid #2D2D2D;
+            border-top: 3px solid #DC2626;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Sinhala Text Support */
+        .sinhala {
+            font-family: 'Noto Sans Sinhala', sans-serif;
+        }
+        
+        /* Sticky Cart Badge Animation */
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .cart-bounce {
+            animation: bounce 0.3s ease;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Product Card Image Zoom */
+        .product-image-container {
+            overflow: hidden;
+        }
+        .product-image-container img {
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .product-image-container img {
+            transform: scale(1.1);
+        }
+        
+        /* Price Tag */
+        .price-tag {
+            background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+        }
+        
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        .toast.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-darker text-gray-100 font-sans antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent">
+        <div class="glass border-b border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                        <div class="w-12 h-12 bg-gradient-to-br from-primary to-primaryDark rounded-lg flex items-center justify-center mr-3 shadow-lg shadow-primary/30">
+                            <i class="fas fa-cog text-white text-2xl animate-spin-slow"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-black tracking-tighter text-white">PARTS <span class="text-primary">PODDA</span></h1>
+                            <p class="text-xs text-gray-400 sinhala tracking-wider">වාහන අමතර කොටස්</p>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden lg:flex items-center space-x-8">
+                        <a href="#home" class="text-gray-300 hover:text-primary transition-colors font-medium">Home</a>
+                        <a href="#shop" class="text-gray-300 hover:text-primary transition-colors font-medium">Shop</a>
+                        <a href="#categories" class="text-gray-300 hover:text-primary transition-colors font-medium">Categories</a>
+                        <a href="#deals" class="text-gray-300 hover:text-primary transition-colors font-medium">Deals</a>
+                        <a href="#about" class="text-gray-300 hover:text-primary transition-colors font-medium">About</a>
+                        <a href="#contact" class="text-gray-300 hover:text-primary transition-colors font-medium">Contact</a>
+                    </div>
+
+                    <!-- Right Icons -->
+                    <div class="hidden lg:flex items-center space-x-6">
+                        <!-- Language Toggle -->
+                        <button onclick="toggleLanguage()" class="text-gray-300 hover:text-primary transition-colors flex items-center gap-2 text-sm font-medium">
+                            <i class="fas fa-globe"></i>
+                            <span id="lang-text">EN / සිං</span>
+                        </button>
+                        
+                        <!-- Wishlist -->
+                        <button onclick="toggleWishlist()" class="relative text-gray-300 hover:text-primary transition-colors">
+                            <i class="fas fa-heart text-xl"></i>
+                            <span id="wishlist-count" class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center opacity-0 transition-opacity">0</span>
+                        </button>
+                        
+                        <!-- Cart -->
+                        <button onclick="toggleCart()" class="relative text-gray-300 hover:text-primary transition-colors">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cart-count" class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                        </button>
+                        
+                        <!-- User -->
+                        <button onclick="toggleAuth()" class="bg-primary hover:bg-primaryDark text-white px-6 py-2 rounded-full font-medium transition-all transform hover:scale-105 shadow-lg shadow-primary/30">
+                            <i class="fas fa-user mr-2"></i>Login
+                        </button>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-darker lg:hidden">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-2xl font-black text-white">PARTS <span class="text-primary">PODDA</span></h1>
+                <button onclick="toggleMobileMenu()" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <a href="#home" onclick="toggleMobileMenu()" class="block text-xl text-gray-300 hover:text-primary py-2 border-b border-gray-800">Home</a>
+                <a href="#shop" onclick="toggleMobileMenu()" class="block text-xl text-gray-300 hover:text-primary py-2 border-b border-gray-800">Shop</a>
+                <a href="#categories" onclick="toggleMobileMenu()" class="block text-xl text-gray-300 hover:text-primary py-2 border-b border-gray-800">Categories</a>
+                <a href="#deals" onclick="toggleMobileMenu()" class="block text-xl text-gray-300 hover:text-primary py-2 border-b border-gray-800">Deals</a>
+                <a href="#about" onclick="toggleMobileMenu()" class="block text-xl text-gray-300 hover:text-primary py-2 border-b border-gray-800">About Us</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block text-xl text-gray-300 hover:text-primary py-2 border-b border-gray-800">Contact</a>
+            </div>
+            <div class="mt-8 space-y-4">
+                <button onclick="toggleAuth(); toggleMobileMenu()" class="w-full bg-primary text-white py-3 rounded-lg font-medium">Login / Register</button>
+                <button onclick="toggleCart(); toggleMobileMenu()" class="w-full bg-darkGray text-white py-3 rounded-lg font-medium flex items-center justify-center gap-2">
+                    <i class="fas fa-shopping-cart"></i> Cart (<span id="mobile-cart-count">0</span>)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 bg-gradient-to-br from-darker via-dark to-darkGray"></div>
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-primary/30 rounded-full blur-3xl animate-pulse-slow"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        </div>
+        
+        <!-- Grid Pattern -->
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div data-aos="fade-up" data-aos-duration="1000">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-sm">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    <span class="text-sm text-gray-300 sinhala">Islandwide Delivery Available</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
+                    <span class="block text-white">හැම වාහනයකම</span>
+                    <span class="gradient-text">Parts එක</span>
+                    <span class="block text-white mt-2">තැනකින්!</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-400 mb-4 max-w-3xl mx-auto sinhala">
+                    Cars, Vans, Bikes, Lorries සඳහා ගුණාත්මක අමතර කොටස්
+                </p>
+                <p class="text-lg text-gray-500 mb-10 max-w-2xl mx-auto">
+                    Sri Lanka's most trusted marketplace for genuine and aftermarket vehicle spare parts. 
+                    Quality guaranteed with cash on delivery.
+                </p>
+
+                <!-- Search Bar -->
+                <div class="max-w-3xl mx-auto mb-12">
+                    <div class="glass rounded-2xl p-2 flex flex-col md:flex-row gap-2 shadow-2xl shadow-black/50">
+                        <div class="flex-1 relative">
+                            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" id="hero-search" placeholder="Search parts, brands, or vehicle models..." 
+                                class="w-full pl-12 pr-4 py-4 bg-darkGray/50 rounded-xl text-white placeholder-gray-500 focus:outline-none search-glow border border-white/10">
+                        </div>
+                        <select id="hero-vehicle-type" class="md:w-48 px-4 py-4 bg-darkGray/50 rounded-xl text-white border border-white/10 focus:outline-none cursor-pointer">
+                            <option value="all">All Vehicles</option>
+                            <option value="car">Cars</option>
+                            <option value="van">Vans</option>
+                            <option value="bike">Motorbikes</option>
+                            <option value="lorry">Lorries</option>
+                        </select>
+                        <button onclick="performSearch()" class="bg-primary hover:bg-primaryDark text-white px-8 py-4 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg shadow-primary/30 flex items-center justify-center gap-2">
+                            <span>Search</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                    <div class="glass rounded-2xl p-4 border border-white/5">
+                        <div class="text-3xl font-bold text-primary mb-1">50K+</div>
+                        <div class="text-sm text-gray-400">Products</div>
+                    </div>
+                    <div class="glass rounded-2xl p-4 border border-white/5">
+                        <div class="text-3xl font-bold text-primary mb-1">25K+</div>
+                        <div class="text-sm text-gray-400">Happy Customers</div>
+                    </div>
+                    <div class="glass rounded-2xl p-4 border border-white/5">
+                        <div class="text-3xl font-bold text-primary mb-1">Islandwide</div>
+                        <div class="text-sm text-gray-400">Delivery</div>
+                    </div>
+                    <div class="glass rounded-2xl p-4 border border-white/5">
+                        <div class="text-3xl font-bold text-primary mb-1">24/7</div>
+                        <div class="text-sm text-gray-400">Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-primary text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Browse by <span class="gradient-text">Category</span></h2>
+                <p class="text-gray-400 text-lg sinhala">ඔබගේ වාහන වර්ගයට අදාළ කොටස් බලන්න</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Car Parts -->
+                <div class="gradient-border rounded-2xl p-1 cursor-pointer group" onclick="filterByCategory('car')" data-aos="fade-up" data-aos-delay="0">
+                    <div class="bg-darkGray rounded-2xl p-8 h-full flex flex-col items-center justify-center text-center transition-all duration-300 group-hover:bg-mediumGray relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-blue-600/20 to-blue-800/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-car text-4xl text-blue-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Car Parts</h3>
+                        <p class="text-gray-400 text-sm mb-4 sinhala">මෝටර් කාර් අමතර කොටස්</p>
+                        <div class="flex items-center text-primary font-medium">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Van Parts -->
+                <div class="gradient-border rounded-2xl p-1 cursor-pointer group" onclick="filterByCategory('van')" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-darkGray rounded-2xl p-8 h-full flex flex-col items-center justify-center text-center transition-all duration-300 group-hover:bg-mediumGray relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-green-600/20 to-green-800/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-shuttle-van text-4xl text-green-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Van Parts</h3>
+                        <p class="text-gray-400 text-sm mb-4 sinhala">වෑන් රථ අමතර කොටස්</p>
+                        <div class="flex items-center text-primary font-medium">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bike Parts -->
+                <div class="gradient-border rounded-2xl p-1 cursor-pointer group" onclick="filterByCategory('bike')" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-darkGray rounded-2xl p-8 h-full flex flex-col items-center justify-center text-center transition-all duration-300 group-hover:bg-mediumGray relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-orange-600/20 to-orange-800/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-motorcycle text-4xl text-orange-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Bike Parts</h3>
+                        <p class="text-gray-400 text-sm mb-4 sinhala">මෝටර් සයිකල් අමතර කොටස්</p>
+                        <div class="flex items-center text-primary font-medium">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lorry Parts -->
+                <div class="gradient-border rounded-2xl p-1 cursor-pointer group" onclick="filterByCategory('lorry')" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-darkGray rounded-2xl p-8 h-full flex flex-col items-center justify-center text-center transition-all duration-300 group-hover:bg-mediumGray relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-purple-600/20 to-purple-800/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-truck text-4xl text-purple-500"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Lorry Parts</h3>
+                        <p class="text-gray-400 text-sm mb-4 sinhala">ලොරි රථ අමතර කොටස්</p>
+                        <div class="flex items-center text-primary font-medium">
+                            <span>Explore</span>
+                            <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="shop" class="py-24 bg-darkGray/30 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12" data-aos="fade-up">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-2">Featured <span class="gradient-text">Products</span></h2>
+                    <p class="text-gray-400 sinhala">ජනප්‍රිය හා විශ්වාසනීය නිෂ්පාදන</p>
+                </div>
+                
+                <!-- Filters -->
+                <div class="mt-6 md:mt-0 flex flex-wrap gap-3">
+                    <button onclick="filterProducts('all')" class="filter-btn active px-6 py-2 rounded-full bg-primary text-white font-medium transition-all" data-filter="all">All</button>
+                    <button onclick="filterProducts('car')" class="filter-btn px-6 py-2 rounded-full bg-mediumGray text-gray-300 hover:bg-primary hover:text-white font-medium transition-all" data-filter="car">Cars</button>
+                    <button onclick="filterProducts('bike')" class="filter-btn px-6 py-2 rounded-full bg-mediumGray text-gray-300 hover:bg-primary hover:text-white font-medium transition-all" data-filter="bike">Bikes</button>
+                    <button onclick="filterProducts('van')" class="filter-btn px-6 py-2 rounded-full bg-mediumGray text-gray-300 hover:bg-primary hover:text-white font-medium transition-all" data-filter="van">Vans</button>
+                    <button onclick="filterProducts('lorry')" class="filter-btn px-6 py-2 rounded-full bg-mediumGray text-gray-300 hover:bg-primary hover:text-white font-medium transition-all" data-filter="lorry">Lorries</button>
+                </div>
+            </div>
+
+            <!-- Advanced Filter Bar -->
+            <div class="glass rounded-xl p-4 mb-8 flex flex-wrap gap-4 items-center justify-between" data-aos="fade-up">
+                <div class="flex flex-wrap gap-4 items-center">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-filter text-primary"></i>
+                        <span class="text-sm font-medium">Filter by:</span>
+                    </div>
+                    <select id="brand-filter" onchange="applyFilters()" class="bg-darker border border-lightGray rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary">
+                        <option value="">All Brands</option>
+                        <option value="toyota">Toyota</option>
+                        <option value="honda">Honda</option>
+                        <option value="nissan">Nissan</option>
+                        <option value="suzuki">Suzuki</option>
+                        <option value="bajaj">Bajaj</option>
+                        <option value="tvs">TVS</option>
+                    </select>
+                    <select id="price-filter" onchange="applyFilters()" class="bg-darker border border-lightGray rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary">
+                        <option value="">Price Range</option>
+                        <option value="0-5000">Under Rs. 5,000</option>
+                        <option value="5000-15000">Rs. 5,000 - 15,000</option>
+                        <option value="15000-50000">Rs. 15,000 - 50,000</option>
+                        <option value="50000+">Above Rs. 50,000</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-gray-400">Sort by:</span>
+                    <select id="sort-filter" onchange="applyFilters()" class="bg-darker border border-lightGray rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="newest">Newest First</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Products will be injected here by JavaScript -->
+            </div>
+
+            <!-- Load More -->
+            <div class="text-center mt-12">
+                <button onclick="loadMoreProducts()" class="bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full font-bold transition-all duration-300">
+                    Load More Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals Section -->
+    <section id="deals" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="glass rounded-3xl p-8 md:p-12 border border-primary/20" data-aos="fade-up">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 text-primary mb-4">
+                            <i class="fas fa-fire"></i>
+                            <span class="font-bold">Limited Time Offer</span>
+                        </div>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4">Flash Sale <span class="gradient-text">Up to 50% OFF</span></h2>
+                        <p class="text-gray-400 mb-6 text-lg">Get massive discounts on selected brake pads, engine oil, and filters. Valid until stocks last!</p>
+                        
+                        <!-- Countdown -->
+                        <div class="grid grid-cols-4 gap-4 mb-8 max-w-md">
+                            <div class="bg-darker rounded-lg p-3 text-center border border-lightGray">
+                                <div id="days" class="text-2xl font-bold text-primary">02</div>
+                                <div class="text-xs text-gray-500">Days</div>
+                            </div>
+                            <div class="bg-darker rounded-lg p-3 text-center border border-lightGray">
+                                <div id="hours" class="text-2xl font-bold text-primary">14</div>
+                                <div class="text-xs text-gray-500">Hours</div>
+                            </div>
+                            <div class="bg-darker rounded-lg p-3 text-center border border-lightGray">
+                                <div id="minutes" class="text-2xl font-bold text-primary">35</div>
+                                <div class="text-xs text-gray-500">Mins</div>
+                            </div>
+                            <div class="bg-darker rounded-lg p-3 text-center border border-lightGray">
+                                <div id="seconds" class="text-2xl font-bold text-primary">48</div>
+                                <div class="text-xs text-gray-500">Secs</div>
+                            </div>
+                        </div>
+                        
+                        <button onclick="scrollToShop()" class="bg-primary hover:bg-primaryDark text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg shadow-primary/30 flex items-center gap-2">
+                            Shop Deals Now
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-primary/20 rounded-full blur-3xl animate-pulse-slow"></div>
+                        <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=400&fit=crop" alt="Auto Parts" class="relative z-10 rounded-2xl shadow-2xl w-full object-cover h-80">
+                        <div class="absolute -bottom-4 -right-4 bg-primary text-white px-6 py-3 rounded-full font-bold text-xl z-20 shadow-lg">
+                            -50%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-24 bg-darkGray/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">Why Choose <span class="gradient-text">PARTS PODDA?</span></h2>
+                <p class="text-gray-400 sinhala">අපව තෝරා ගන්න හේතු</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass rounded-2xl p-6 text-center hover-lift" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
+                        <i class="fas fa-certificate text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Genuine Parts</h3>
+                    <p class="text-gray-400 text-sm sinhala">මුල් නිෂ්පාදන පමණි</p>
+                </div>
+                
+                <div class="glass rounded-2xl p-6 text-center hover-lift" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
+                        <i class="fas fa-shipping-fast text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Islandwide Delivery</h3>
+                    <p class="text-gray-400 text-sm sinhala">දූපත පුරා බෙදා හැරීම</p>
+                </div>
+                
+                <div class="glass rounded-2xl p-6 text-center hover-lift" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
+                        <i class="fas fa-money-bill-wave text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Cash on Delivery</h3>
+                    <p class="text-gray-400 text-sm sinhala">බෙදා හැරීමේදී මුදල් ගෙවීම</p>
+                </div>
+                
+                <div class="glass rounded-2xl p-6 text-center hover-lift" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/20 flex items-center justify-center">
+                        <i class="fas fa-headset text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">24/7 Support</h3>
+                    <p class="text-gray-400 text-sm sinhala">දිනපතා සහාය</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">Customer <span class="gradient-text">Reviews</span></h2>
+                <p class="text-gray-400">What our customers say about us</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass rounded-2xl p-8 border border-white/5" data-aos="fade-up" data-aos-delay="0">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-primary">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"Excellent service! Found the exact brake pads for my Toyota Corolla. Delivery was fast and the parts were genuine. Highly recommended!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primaryDark flex items-center justify-center text-white font-bold mr-4">
+                            SK
+                        </div>
+                        <div>
+                            <div class="font-bold">Sanjeewa Kumara</div>
+                            <div class="text-sm text-gray-500 sinhala">කොළඹ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass rounded-2xl p-8 border border-white/5" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-primary">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"Best place to buy bike parts in Sri Lanka. I ordered spark plugs and air filters for my Bajaj Pulsar. Cash on delivery option is very convenient."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primaryDark flex items-center justify-center text-white font-bold mr-4">
+                            NP
+                        </div>
+                        <div>
+                            <div class="font-bold">Nimal Perera</div>
+                            <div class="text-sm text-gray-500 sinhala">ගාල්ල</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass rounded-2xl p-8 border border-white/5" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-primary">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6">"Great selection of lorry parts. The website is easy to use and the customer service team helped me find the right clutch plate for my truck."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primaryDark flex items-center justify-center text-white font-bold mr-4">
+                            RS
+                        </div>
+                        <div>
+                            <div class="font-bold">Ranjith Silva</div>
+                            <div class="text-sm text-gray-500 sinhala">කෑගල්ල</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-darkGray/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=600&h=400&fit=crop" alt="About Parts Podda" class="rounded-2xl shadow-2xl w-full">
+                        <div class="absolute -bottom-6 -right-6 glass rounded-2xl p-6 border border-primary/20">
+                            <div class="text-4xl font-bold text-primary mb-1">10+</div>
+                            <div class="text-sm text-gray-400">Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <h2 class="text-4xl font-bold mb-6">About <span class="gradient-text">PARTS PODDA</span></h2>
+                    <p class="text-gray-400 mb-6 text-lg leading-relaxed sinhala">
+                        PARTS PODDA is Sri Lanka's leading online marketplace for vehicle spare parts. We connect customers with quality parts for cars, vans, motorbikes, and lorries.
+                    </p>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        Founded with a mission to make vehicle maintenance affordable and accessible, we offer genuine and aftermarket parts from trusted brands. Our islandwide delivery network ensures you get your parts wherever you are in Sri Lanka.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-primary text-xl"></i>
+                            <span class="text-gray-300">Genuine Products</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-primary text-xl"></i>
+                            <span class="text-gray-300">Best Prices</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-primary text-xl"></i>
+                            <span class="text-gray-300">Fast Delivery</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-primary text-xl"></i>
+                            <span class="text-gray-300">Secure Payments</span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="scrollToContact()" class="bg-primary hover:bg-primaryDark text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg shadow-primary/30">
+                        Contact Us
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-4">Contact <span class="gradient-text">Us</span></h2>
+                <p class="text-gray-400 sinhala">අප හා සම්බන්ධ වන්න</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="glass rounded-2xl p-8 border border-white/5" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-6">Get in Touch</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Address</h4>
+                                <p class="text-gray-400">No. 123, Main Street, Colombo 03, Sri Lanka</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Phone</h4>
+                                <p class="text-gray-400">+94 11 234 5678<br>+94 77 123 4567 (WhatsApp)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Email</h4>
+                                <p class="text-gray-400">info@partspodda.lk<br>support@partspodda.lk</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-clock text-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Working Hours</h4>
+                                <p class="text-gray-400">Mon - Sat: 9:00 AM - 6:00 PM<br>Sunday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-mediumGray flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-mediumGray flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-mediumGray flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-mediumGray flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="glass rounded-2xl p-8 border border-white/5" data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-6">Send Message</h3>
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" placeholder="First Name" required class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white">
+                            <input type="text" placeholder="Last Name" required class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white">
+                        </div>
+                        <input type="email" placeholder="Email Address" required class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white">
+                        <input type="tel" placeholder="Phone Number" class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white">
+                        <select class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white">
+                            <option value="">Select Vehicle Type</option>
+                            <option value="car">Car</option>
+                            <option value="van">Van</option>
+                            <option value="bike">Motorbike</option>
+                            <option value="lorry">Lorry</option>
+                        </select>
+                        <textarea placeholder="Your Message" rows="4" required class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white resize-none"></textarea>
+                        <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white py-3 rounded-lg font-bold transition-all shadow-lg shadow-primary/30">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker border-t border-white/5 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-primaryDark rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-cog text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-black text-white">PARTS <span class="text-primary">PODDA</span></h3>
+                    </div>
+                    <p class="text-gray-400 mb-4 text-sm leading-relaxed">
+                        Sri Lanka's trusted marketplace for vehicle spare parts. Quality guaranteed with islandwide delivery.
+                    </p>
+                    <p class="text-gray-500 text-sm sinhala">වාහන අමතර කොටස් වල විශ්වසනීය වෙළඳසැල</p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#home" class="hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="#shop" class="hover:text-primary transition-colors">Shop</a></li>
+                        <li><a href="#categories" class="hover:text-primary transition-colors">Categories</a></li>
+                        <li><a href="#deals" class="hover:text-primary transition-colors">Deals</a></li>
+                        <li><a href="#about" class="hover:text-primary transition-colors">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">Customer Service</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" onclick="toggleAuth()" class="hover:text-primary transition-colors">My Account</a></li>
+                        <li><a href="#" onclick="toggleCart()" class="hover:text-primary transition-colors">Track Order</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Return Policy</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Shipping Info</a></li>
+                        <li><a href="#contact" class="hover:text-primary transition-colors">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 text-sm mb-4">Subscribe for latest deals and updates</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="flex gap-2">
+                        <input type="email" placeholder="Enter email" required class="flex-1 px-4 py-2 bg-darkGray border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white text-sm">
+                        <button type="submit" class="bg-primary hover:bg-primaryDark text-white px-4 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    © 2024 PARTS PODDA. All rights reserved.
+                </p>
+                <div class="flex gap-6 text-gray-500 text-sm">
+                    <a href="#" class="hover:text-primary transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-primary transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-primary transition-colors">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/94771234567" target="_blank" class="whatsapp-float bg-green-500 hover:bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110 z-50">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-96 bg-darker shadow-2xl transform translate-x-full transition-transform duration-300 z-50 border-l border-white/10">
+        <div class="h-full flex flex-col">
+            <div class="p-6 border-b border-white/10 flex justify-between items-center">
+                <h2 class="text-2xl font-bold">Shopping Cart</h2>
+                <button onclick="toggleCart()" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Cart items injected here -->
+                <div class="text-center text-gray-500 mt-12">
+                    <i class="fas fa-shopping-cart text-4xl mb-4 opacity-50"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+            <div class="p-6 border-t border-white/10 bg-darkGray">
+                <div class="flex justify-between mb-4 text-lg font-bold">
+                    <span>Total:</span>
+                    <span id="cart-total" class="text-primary">Rs. 0.00</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-primary hover:bg-primaryDark text-white py-3 rounded-lg font-bold transition-all shadow-lg shadow-primary/30 mb-3">
+                    Checkout
+                </button>
+                <button onclick="toggleCart()" class="w-full bg-transparent border border-lightGray text-gray-300 py-2 rounded-lg hover:bg-mediumGray transition-all">
+                    Continue Shopping
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="glass rounded-2xl p-8 max-w-md w-full relative border border-white/10">
+            <button onclick="toggleAuth()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div id="login-form" class="block">
+                <h2 class="text-3xl font-bold mb-2 text-center">Welcome Back</h2>
+                <p class="text-gray-400 text-center mb-8">Login to your PARTS PODDA account</p>
+                
+                <form onsubmit="handleLogin(event)" class="space-y-4">
+                    <input type="email" placeholder="Email Address" required class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white">
+                    <input type="password" placeholder="Password" required class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white">
+                    <div class="flex justify-between text-sm">
+                        <label class="flex items-center gap-2 text-gray-400">
+                            <input type="checkbox" class="rounded bg-darkGray border-lightGray">
+                            Remember me
+                        </label>
+                        <a href="#" class="text-primary hover:underline">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white py-3 rounded-lg font-bold transition-all shadow-lg shadow-primary/30">
+                        Login
+                    </button>
+                </form>
+                
+                <p class="text-center mt-6 text-gray-400">
+                    Don't have an account? 
+                    <button onclick="toggleAuthMode()" class="text-primary hover:underline font-medium">Register</button>
+                </p>
+            </div>
+
+            <div id="register-form" class="hidden">
+                <h2 class="text-3xl font-bold mb-2 text-center">Create Account</h2>
+                <p class="text-gray-400 text-center mb-8">Join PARTS PODDA today</p>
+                
+                <form onsubmit="handleRegister(event)" class="space-y-4">
+                    <input type="text" placeholder="Full Name" required class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white">
+                    <input type="email" placeholder="Email Address" required class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white">
+                    <input type="tel" placeholder="Phone Number" required class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white">
+                    <input type="password" placeholder="Password" required class="w-full px-4 py-3 bg-darker border border-lightGray rounded-lg focus:outline-none focus:border-primary text-white">
+                    <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white py-3 rounded-lg font-bold transition-all shadow-lg shadow-primary/30">
+                        Register
+                    </button>
+                </form>
+                
+                <p class="text-center mt-6 text-gray-400">
+                    Already have an account? 
+                    <button onclick="toggleAuthMode()" class="text-primary hover:underline font-medium">Login</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Sidebar -->
+    <div id="wishlist-sidebar" class="fixed inset-y-0 right-0 w-full md:w-96 bg-darker shadow-2xl transform translate-x-full transition-transform duration-300 z-50 border-l border-white/10">
+        <div class="h-full flex flex-col">
+            <div class="p-6 border-b border-white/10 flex justify-between items-center">
+                <h2 class="text-2xl font-bold">My Wishlist</h2>
+                <button onclick="toggleWishlist()" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div id="wishlist-items" class="flex-1 overflow-y-auto p-6">
+                <div class="text-center text-gray-500 mt-12">
+                    <i class="fas fa-heart text-4xl mb-4 opacity-50"></i>
+                    <p>Your wishlist is empty</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Quick View Modal -->
+    <div id="product-modal" class="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="glass rounded-2xl max-w-4xl w-full relative border border-white/10 overflow-hidden" onclick="event.stopPropagation()">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-darkGray flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary transition-all">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="product-modal-content" class="grid md:grid-cols-2">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast glass rounded-xl p-4 border border-primary/30 flex items-center gap-3 shadow-2xl">
+        <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+            <i class="fas fa-check text-primary"></i>
+        </div>
+        <div>
+            <h4 class="font-bold text-white" id="toast-title">Success</h4>
+            <p class="text-sm text-gray-400" id="toast-message">Item added to cart</p>
+        </div>
+    </div>
+
+    <!-- Overlay for sidebars -->
+    <div id="overlay" onclick="closeAllSidebars()" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+        });
+
+        // Sample Product Data
+        const products = [
+            {
+                id: 1,
+                name: "Toyota Brake Pad Set",
+                sinhalaName: "ටෝයෝටා බ්‍රේක් පෑඩ්",
+                category: "car",
+                brand: "toyota",
+                price: 12500,
+                originalPrice: 15000,
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
+                rating: 4.8,
+                reviews: 124,
+                inStock: true,
+                badge: "Best Seller"
+            },
+            {
+                id: 2,
+                name: "Honda Engine Oil 4L",
+                sinhalaName: "හොන්ඩා එන්ජින් තෙල්",
+                category: "car",
+                brand: "honda",
+                price: 8500,
+                originalPrice: 9500,
+                image: "https://images.unsplash.com/photo-1605515298946-d062f2e9da53?w=400&h=300&fit=crop",
+                rating: 4.9,
+                reviews: 89,
+                inStock: true,
+                badge: "Popular"
+            },
+            {
+                id: 3,
+                name: "Bajaj Pulsar Spark Plug",
+                sinhalaName: "බජාජ් පල්සර් ස්පාක් ප්ලග්",
+                category: "bike",
+                brand: "bajaj",
+                price: 450,
+                originalPrice: 600,
+                image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=400&h=300&fit=crop",
+                rating: 4.7,
+                reviews: 256,
+                inStock: true,
+                badge: "Deal"
+            },
+            {
+                id: 4,
+                name: "Nissan Van Air Filter",
+                sinhalaName: "නිසාන් වෑන් එයාර් ෆිල්ටර්",
+                category: "van",
+                brand: "nissan",
+                price: 3200,
+                originalPrice: 3800,
+                image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=400&h=300&fit=crop",
+                rating: 4.6,
+                reviews: 67,
+                inStock: true,
+                badge: null
+            },
+            {
+                id: 5,
+                name: "Lorry Clutch Plate",
+                sinhalaName: "ලොරි ක්ලච් ප්ලේට්",
+                category: "lorry",
+                brand: "toyota",
+                price: 45000,
+                originalPrice: 52000,
+                image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=300&fit=crop",
+                rating: 4.9,
+                reviews: 34,
+                inStock: true,
+                badge: "Heavy Duty"
+            },
+            {
+                id: 6,
+                name: "Suzuki Alto Brake Shoe",
+                sinhalaName: "සුසුකි අල්ටෝ බ්‍රේක්ෂූ",
+                category: "car",
+                brand: "suzuki",
+                price: 6800,
+                originalPrice: 7500,
+                image: "https://images.unsplash.com/photo-1552519507-da3b1421c357?w=400&h=300&fit=crop",
+                rating: 4.5,
+                reviews: 112,
+                inStock: true,
+                badge: null
+            },
+            {
+                id: 7,
+                name: "TVS Apache Chain Sprocket",
+                sinhalaName: "ටීවීඑස් අපාච් චේන් ස්ප්‍රොකට්",
+                category: "bike",
+                brand: "tvs",
+                price: 2800,
+                originalPrice: 3200,
+                image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=400&h=300&fit=crop",
+                rating: 4.8,
+                reviews: 78,
+                inStock: true,
+                badge: "New"
+            },
+            {
+                id: 8,
+                name: "Toyota Hiace Oil Filter",
+                sinhalaName: "ටෝයෝටා හයේස් ඔයිල් ෆිල්ටර්",
+                category: "van",
+                brand: "toyota",
+                price: 1800,
+                originalPrice: 2200,
+                image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=300&fit=crop",
+                rating: 4.7,
+                reviews: 145,
+                inStock: true,
+                badge: "Deal"
+            }
+        ];
+
+        // State Management
+        let cart = [];
+        let wishlist = [];
+        let currentFilter = 'all';
+        let isSinhala = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(products);
+            startCountdown();
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-lg');
+                } else {
+                    navbar.classList.remove('shadow-lg');
+                }
+            });
+        });
+
+        // Render Products
+        function renderProducts(productsToRender) {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = productsToRender.map(product => `
+                <div class="product-card bg-darkGray rounded-2xl overflow-hidden border border-white/5 hover:border-primary/30 transition-all duration-300 hover-lift group" data-aos="fade-up">
+                    <div class="product-image-container relative h-48 overflow-hidden bg-darker">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                        ${product.badge ? `<div class="absolute top-3 left-3 price-tag px-3 py-1 text-white text-xs font-bold">${product.badge}</div>` : ''}
+                        <div class="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button onclick="toggleWishlistItem(${product.id})" class="w-8 h-8 rounded-full bg-white/10 backdrop-blur flex items-center justify-center hover:bg-primary transition-colors">
+                                <i class="fas fa-heart ${wishlist.includes(product.id) ? 'text-primary' : 'text-white'} text-sm"></i>
+                            </button>
+                            <button onclick="quickView(${product.id})" class="w-8 h-8 rounded-full bg-white/10 backdrop-blur flex items-center justify-center hover:bg-primary transition-colors">
+                                <i class="fas fa-eye text-white text-sm"></i>
+                            </button>
+                        </div>
+                        ${!product.inStock ? '<div class="absolute inset-0 bg-black/60 flex items-center justify-center"><span class="bg-gray-800 text-white px-4 py-2 rounded-full text-sm">Out of Stock</span></div>' : ''}
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs text-primary font-medium uppercase tracking-wider">${product.brand}</span>
+                            <div class="flex items-center gap-1 text-yellow-500 text-xs">
+                                <i class="fas fa-star"></i>
+                               
